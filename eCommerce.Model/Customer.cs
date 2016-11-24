@@ -27,5 +27,7 @@ namespace eCommerce.Model
                                                               // probably using a JOIN sql command
         public int MembershipTypeId { get; set; }  // Foreign Key using the <Other Table>Id convention
 
+        public DateTime BirthDate { get; set; }
+
     }
 }

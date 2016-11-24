@@ -23,6 +23,7 @@ namespace eCommerce.DAL.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        public System.Data.Entity.DbSet<eCommerce.Model.MembershipType> MembershipTypes { get; set; }
     }
 
        

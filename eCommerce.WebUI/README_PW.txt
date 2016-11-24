@@ -22,3 +22,8 @@ If you want to rollback all migrations you can use:
 Update-Database -TargetMigration:0
 or equivalent:
 Update-Database -TargetMigration:$InitialDatabase
+
+The Package Manager Console is used initially so much that it is worth creating a keyboard short cut to it, as follows:-
+Tools->Options->Environment->Keyboard. Search for PackageManagerConsole. In the 'Press shortcut keys' box, enter Alt+/ and Alt+.
+This will show the package manager console when the Alt key is held down while slash and dot are pressed.
+This key combination doesn't conflict with other key combinations.

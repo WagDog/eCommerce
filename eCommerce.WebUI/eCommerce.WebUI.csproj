@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -224,6 +225,22 @@
     <Compile Include="Migrations\201611240944080_AddCustomerDataAnnotations.cs" />
     <Compile Include="Migrations\201611240944080_AddCustomerDataAnnotations.Designer.cs">
       <DependentUpon>201611240944080_AddCustomerDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241037355_AddMemebershipTypeName.cs" />
+    <Compile Include="Migrations\201611241037355_AddMemebershipTypeName.Designer.cs">
+      <DependentUpon>201611241037355_AddMemebershipTypeName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241038293_AddMembershipTypeNameData.cs" />
+    <Compile Include="Migrations\201611241038293_AddMembershipTypeNameData.Designer.cs">
+      <DependentUpon>201611241038293_AddMembershipTypeNameData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241106417_AddCustomerBirthDate.cs" />
+    <Compile Include="Migrations\201611241106417_AddCustomerBirthDate.Designer.cs">
+      <DependentUpon>201611241106417_AddCustomerBirthDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241107348_AddCustomerBirthDateData.cs" />
+    <Compile Include="Migrations\201611241107348_AddCustomerBirthDateData.Designer.cs">
+      <DependentUpon>201611241107348_AddCustomerBirthDateData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,6 +310,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,6 +359,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611240944080_AddCustomerDataAnnotations.resx">
       <DependentUpon>201611240944080_AddCustomerDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241037355_AddMemebershipTypeName.resx">
+      <DependentUpon>201611241037355_AddMemebershipTypeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241038293_AddMembershipTypeNameData.resx">
+      <DependentUpon>201611241038293_AddMembershipTypeNameData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241106417_AddCustomerBirthDate.resx">
+      <DependentUpon>201611241106417_AddCustomerBirthDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241107348_AddCustomerBirthDateData.resx">
+      <DependentUpon>201611241107348_AddCustomerBirthDateData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
