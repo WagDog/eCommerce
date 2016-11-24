@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees;
 using eCommerce.Model;
-//using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -28,6 +27,10 @@ namespace eCommerce.WebUI.Models
         public DbSet<Product> Product { get; set; }
 
         public DbSet<MembershipType> MembershipType { get; set; }
+
+        public DbSet<Movie> Movie { get; set; }
+
+        public DbSet<Genre> Genre { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
