@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201611231718339_AddMembershipTypeSeedData.Designer.cs">
       <DependentUpon>201611231718339_AddMembershipTypeSeedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611240944080_AddCustomerDataAnnotations.cs" />
+    <Compile Include="Migrations\201611240944080_AddCustomerDataAnnotations.Designer.cs">
+      <DependentUpon>201611240944080_AddCustomerDataAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -330,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231718339_AddMembershipTypeSeedData.resx">
       <DependentUpon>201611231718339_AddMembershipTypeSeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611240944080_AddCustomerDataAnnotations.resx">
+      <DependentUpon>201611240944080_AddCustomerDataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
