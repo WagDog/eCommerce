@@ -31,7 +31,7 @@ namespace eCommerce.WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Customer customer = db.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.CustomerId == id);
+            var customer = db.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.CustomerId == id);
             if (customer == null)
             {
                 return HttpNotFound();
