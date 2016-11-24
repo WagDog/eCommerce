@@ -22,8 +22,9 @@ namespace eCommerce.DAL.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Customer> Customers { get; set; }
-
-        public System.Data.Entity.DbSet<eCommerce.Model.MembershipType> MembershipTypes { get; set; }
+        public DbSet<MembershipType> MembershipTypes { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Genre> Genres { get; set; }
     }
 
        

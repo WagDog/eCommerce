@@ -199,6 +199,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +246,10 @@
     <Compile Include="Migrations\201611241913061_AddMoviesTable.cs" />
     <Compile Include="Migrations\201611241913061_AddMoviesTable.Designer.cs">
       <DependentUpon>201611241913061_AddMoviesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611242010048_AddGenreTableData.cs" />
+    <Compile Include="Migrations\201611242010048_AddGenreTableData.Designer.cs">
+      <DependentUpon>201611242010048_AddGenreTableData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -319,6 +324,11 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Movies\Create.cshtml" />
+    <Content Include="Views\Movies\Delete.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\Edit.cshtml" />
+    <Content Include="Views\Movies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -378,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611241913061_AddMoviesTable.resx">
       <DependentUpon>201611241913061_AddMoviesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611242010048_AddGenreTableData.resx">
+      <DependentUpon>201611242010048_AddGenreTableData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
