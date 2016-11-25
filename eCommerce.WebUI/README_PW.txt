@@ -23,7 +23,28 @@ Update-Database -TargetMigration:0
 or equivalent:
 Update-Database -TargetMigration:$InitialDatabase
 
+To find out which migrations have been applied to a database, do as follows from the package manager console:-
+get-migrations
+
+If a migration has been added, that has not been applied to the database, then the migration files can be deleted if the migration
+is not required, or other parameters set in the model before re-running the add-migration with the same name, to override the 
+original migration.
+If a migration has been run on the database, and you wish to remove it, first run the update-database <Last Good Migration to Keep> command,
+before removing the unwanted migration files. 
+
 The Package Manager Console is used initially so much that it is worth creating a keyboard short cut to it, as follows:-
 Tools->Options->Environment->Keyboard. Search for PackageManagerConsole. In the 'Press shortcut keys' box, enter Alt+/ and Alt+.
 This will show the package manager console when the Alt key is held down while slash and dot are pressed.
-This key combination doesn't conflict with other key combinations.
+This key combination doesn't conflict with other key combinations
+
+## Using GIT ##
+To push changes from your local machine to the online remote repository, use the Windows app. Click the Changes button and give a
+name to the collection of changes. Press the Commit button and then Sync with the remote repository
+To pull changes from the online repository and overwrite the local files, do as follows:-
+
+git fetch --all, followed by:-
+git reset --hard origin/master
+
+Git fetch downloads the latest from remote without trying to merge or rebase anything.
+Then the git reset resets the master branch to what you just fetched. 
+The --hard option changes all the files in your working tree to match the files in origin/master

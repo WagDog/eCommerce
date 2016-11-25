@@ -17,8 +17,12 @@
         <th>
             @Html.DisplayNameFor(model => model.CustomerName)
         </th>
-        <th>Membership Name</th>
-        <th>Membership Rate</th>
+        <th>
+            @Html.DisplayNameFor(model => model.MembershipType.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MembershipType.DiscountRate)
+        </th>
     </tr>
 
 @foreach (var item in Model) {

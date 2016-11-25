@@ -22,10 +22,13 @@ namespace eCommerce.Model
 
         public int GenreId { get; set; }
 
+        [Display(Name = "Date Released")]
         public DateTime ReleaseDate { get; set; }
 
+        [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
 
+        [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
     }
 }
