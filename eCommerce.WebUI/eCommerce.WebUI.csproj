@@ -251,6 +251,14 @@
     <Compile Include="Migrations\201611242010048_AddGenreTableData.Designer.cs">
       <DependentUpon>201611242010048_AddGenreTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611251956464_AddCustomerSeedData.cs" />
+    <Compile Include="Migrations\201611251956464_AddCustomerSeedData.Designer.cs">
+      <DependentUpon>201611251956464_AddCustomerSeedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611252013374_AddMovieSeedData.cs" />
+    <Compile Include="Migrations\201611252013374_AddMovieSeedData.Designer.cs">
+      <DependentUpon>201611252013374_AddMovieSeedData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -391,6 +399,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611242010048_AddGenreTableData.resx">
       <DependentUpon>201611242010048_AddGenreTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611251956464_AddCustomerSeedData.resx">
+      <DependentUpon>201611251956464_AddCustomerSeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611252013374_AddMovieSeedData.resx">
+      <DependentUpon>201611252013374_AddMovieSeedData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
