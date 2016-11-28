@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using eCommerce.DAL.Data;
 using eCommerce.Model;
+using eCommerce.WebUI.Models;
+using eCommerce.WebUI.ViewModels;
 
 namespace eCommerce.WebUI.Controllers
 {
@@ -40,20 +42,32 @@ namespace eCommerce.WebUI.Controllers
         // GET: Movies/Create
         public ActionResult Create()
         {
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
-            return View();
+            var genres = db.Genres.ToList();
+            AddUpdateMovieModel addUpdateMovieModel = new AddUpdateMovieModel();
+            addUpdateMovieModel.genres = genres;
+        
+            return View(addUpdateMovieModel);
         }
+
 
         // POST: Movies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieId,Name,GenreId,ReleaseDate,DateAdded,NumberInStock")] Movie movie)
+        public ActionResult Create(AddUpdateMovieModel movie)
         {
-            if (ModelState.IsValid)
+            if (movie.MovieId == 0)
             {
-                db.Movies.Add(movie);
+                Movie dbMovie = new Movie();
+                dbMovie.MovieId = movie.MovieId;
+                dbMovie.Name = movie.Name;
+                dbMovie.GenreId = movie.GenreId;
+                dbMovie.ReleaseDate = movie.ReleaseDate;
+                dbMovie.DateAdded = DateTime.Now;
+                dbMovie.NumberInStock = movie.NumberInStock;
+
+                db.Movies.Add(dbMovie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
