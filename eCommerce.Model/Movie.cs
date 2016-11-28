@@ -23,9 +23,11 @@ namespace eCommerce.Model
         public int GenreId { get; set; }
 
         [Display(Name = "Date Released")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         public DateTime ReleaseDate { get; set; }
 
         [Display(Name = "Date Added")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         public DateTime DateAdded { get; set; }
 
         [Display(Name = "Number in Stock")]

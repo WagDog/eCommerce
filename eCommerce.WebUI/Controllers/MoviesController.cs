@@ -29,7 +29,7 @@ namespace eCommerce.WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var movie = db.Movies.Include(m => m.Genre).SingleOrDefault(m => m.GenreId == id);
+            var movie = db.Movies.Include(m => m.Genre).SingleOrDefault(m => m.MovieId == id);
             if (movie == null)
             {
                 return HttpNotFound();

@@ -12,12 +12,12 @@ namespace eCommerce.Model
         public int CustomerId { get; set; }
 
         [Required]  // Make the Customer name field be set to 'NOT NULL'
-        [StringLength(255)] // MAke the maximum field string length be 255
+        [StringLength((255), ErrorMessage = "Name must be 2-255 characters long", MinimumLength = 2)] // Make the maximum field string length be 255
         [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
 
         [Required]  // Make the Customer name field be set to 'NOT NULL'
-        [StringLength(50)] // Make the maximum field string length be 255
+        [StringLength(50)] // Make the maximum field string length be 50
         [Display(Name = "Address 1")]
         public string Address1 { get; set; }
 
@@ -40,6 +40,7 @@ namespace eCommerce.Model
         public int MembershipTypeId { get; set; }  // Foreign Key using the <Other Table>Id convention
 
         [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         public DateTime BirthDate { get; set; }
 
     }

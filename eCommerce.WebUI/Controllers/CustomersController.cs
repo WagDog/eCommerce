@@ -42,7 +42,7 @@ namespace eCommerce.WebUI.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            ViewBag.MembershipTypeId = new SelectList(db.MembershipTypes, "Id", "Id");
+            ViewBag.MembershipTypeId = new SelectList(db.MembershipTypes, "Id", "Name");
             return View();
         }
 

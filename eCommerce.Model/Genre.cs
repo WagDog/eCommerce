@@ -15,6 +15,7 @@ namespace eCommerce.Model
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "Genre Type")]
         public string Name { get; set; }
     }
 }
