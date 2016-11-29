@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using eCommerce.DAL.Repositories;
 using eCommerce.Model;
 
 namespace eCommerce.WebUI.ViewModels
 {
     public class AddUpdateMovieModel
     {
-        public IEnumerable<Genre> genres { get; set; }
+        public List<Genre> genres { get; set; }
 
         public int MovieId { get; set; }
 
@@ -31,9 +29,13 @@ namespace eCommerce.WebUI.ViewModels
         [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
 
+        public string PageTitle { get; set; }
+
         public AddUpdateMovieModel()
         {
             MovieId = 0;
+            ReleaseDate = DateTime.Now;
+            DateAdded = DateTime.Now;
         }
 
         public AddUpdateMovieModel(Movie movie)
@@ -41,6 +43,7 @@ namespace eCommerce.WebUI.ViewModels
             MovieId = movie.MovieId;
             Name = movie.Name;
             ReleaseDate = movie.ReleaseDate;
+            DateAdded = movie.DateAdded;
             NumberInStock = movie.NumberInStock;
             GenreId = movie.GenreId;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,11 +68,41 @@ namespace eCommerce.DAL.Repositories
         {
             TEntity entity = dbSet.Find(id);
             Delete(entity);
+            
+        }
+
+        public virtual EntityState GetState(TEntity entity)
+        {
+            return context.Entry(entity).State;
+        }
+
+        public virtual void SetState(TEntity entity, EntityState state)
+        {
+            context.Entry(entity).State = state;
         }
 
         public virtual void Commit()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
         public virtual void Dispose()

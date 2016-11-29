@@ -7,8 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eCommerce.DAL.Data;
+using eCommerce.DAL.Repositories;
 using eCommerce.Model;
-using eCommerce.WebUI.Models;
 using eCommerce.WebUI.ViewModels;
 
 namespace eCommerce.WebUI.Controllers
@@ -20,7 +20,8 @@ namespace eCommerce.WebUI.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            var movies = db.Movies.Include(m => m.Genre);
+            MovieRepository movieRepository = new MovieRepository(db);
+            var movies = movieRepository.GetAll().Include(m => m.Genre);
             return View(movies.ToList());
         }
 
@@ -31,7 +32,10 @@ namespace eCommerce.WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var movie = db.Movies.Include(m => m.Genre).SingleOrDefault(m => m.MovieId == id);
+
+            MovieRepository movieRepository = new MovieRepository(db);
+            var movie = movieRepository.GetAll().Include(m => m.Genre).SingleOrDefault(m => m.MovieId == id);
+
             if (movie == null)
             {
                 return HttpNotFound();
@@ -42,9 +46,12 @@ namespace eCommerce.WebUI.Controllers
         // GET: Movies/Create
         public ActionResult Create()
         {
-            var genres = db.Genres.ToList();
+            GenreRepository genreRepository = new GenreRepository(db);
+            var genres = genreRepository.GetAll().ToList();
+
             AddUpdateMovieModel addUpdateMovieModel = new AddUpdateMovieModel();
             addUpdateMovieModel.genres = genres;
+            addUpdateMovieModel.PageTitle = "Create Movie";
         
             return View(addUpdateMovieModel);
         }
@@ -55,25 +62,27 @@ namespace eCommerce.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AddUpdateMovieModel movie)
+        public ActionResult Create(Movie movie)
         {
             if (movie.MovieId == 0)
             {
-                Movie dbMovie = new Movie();
-                dbMovie.MovieId = movie.MovieId;
-                dbMovie.Name = movie.Name;
-                dbMovie.GenreId = movie.GenreId;
-                dbMovie.ReleaseDate = movie.ReleaseDate;
-                dbMovie.DateAdded = DateTime.Now;
-                dbMovie.NumberInStock = movie.NumberInStock;
-
-                db.Movies.Add(dbMovie);
-                db.SaveChanges();
+                MovieRepository movieRepository = new MovieRepository(db);
+                movie.DateAdded = DateTime.Now;
+                movieRepository.Insert(movie);  // Add the movie to the repository
+                movieRepository.Commit();       // SaveChanges to the repository
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", movie.GenreId);
-            return View(movie);
+
+            // Got here, so show the Create form again with details input so far
+            GenreRepository genreRepository = new GenreRepository(db);
+            var genres = genreRepository.GetAll().ToList();
+
+            AddUpdateMovieModel addUpdateMovieModel = new AddUpdateMovieModel(movie);   // Create the model from details supplied into the controller
+            addUpdateMovieModel.genres = genres;
+            addUpdateMovieModel.PageTitle = "Create Movie";
+
+            return View(addUpdateMovieModel);
         }
 
         // GET: Movies/Edit/5
@@ -83,13 +92,22 @@ namespace eCommerce.WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+
+            GenreRepository genreRepository = new GenreRepository(db);
+            var genres = genreRepository.GetAll().ToList();
+            MovieRepository movieRepository = new MovieRepository(db);
+            Movie movie = movieRepository.GetById(id);
             if (movie == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", movie.GenreId);
-            return View(movie);
+
+            AddUpdateMovieModel addUpdateMovieModel = new AddUpdateMovieModel(movie);   // Create the model from details 
+                                                                                        // supplied into the controller
+            addUpdateMovieModel.genres = genres;
+            addUpdateMovieModel.PageTitle = "Edit Movie";
+
+            return View(addUpdateMovieModel);
         }
 
         // POST: Movies/Edit/5
@@ -97,16 +115,26 @@ namespace eCommerce.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId,Name,GenreId,ReleaseDate,DateAdded,NumberInStock")] Movie movie)
+        public ActionResult Edit(Movie movie)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
-                db.SaveChanges();
+                MovieRepository movieRepository = new MovieRepository(db);
+                movie.DateAdded = DateTime.Now;
+                movieRepository.SetState(movie, EntityState.Modified);
+                movieRepository.Update(movie);
+                movieRepository.Commit();
                 return RedirectToAction("Index");
             }
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", movie.GenreId);
-            return View(movie);
+
+            // Got here, so show the edit form again.
+            AddUpdateMovieModel addUpdateMovieModel = new AddUpdateMovieModel(movie);   // Create the model from details 
+                                                                                        // supplied into the controller
+            GenreRepository genreRepository = new GenreRepository(db);
+            var genres = genreRepository.GetAll().ToList();
+            addUpdateMovieModel.genres = genres;
+            addUpdateMovieModel.PageTitle = "Edit Movie";
+            return View(addUpdateMovieModel);
         }
 
         // GET: Movies/Delete/5
@@ -116,7 +144,8 @@ namespace eCommerce.WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            MovieRepository movieRepository = new MovieRepository(db);
+            Movie movie = movieRepository.GetById(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -129,9 +158,14 @@ namespace eCommerce.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Movie movie = db.Movies.Find(id);
-            db.Movies.Remove(movie);
-            db.SaveChanges();
+            MovieRepository movieRepository = new MovieRepository(db);
+            Movie movie = movieRepository.GetById(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            movieRepository.Delete(movie);
+            movieRepository.Commit();
             return RedirectToAction("Index");
         }
 
