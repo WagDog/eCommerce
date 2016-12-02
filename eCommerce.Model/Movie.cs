@@ -13,8 +13,8 @@ namespace eCommerce.Model
         [Required]
         public int MovieId { get; set; }
         
-        [Required]
-        [StringLength(30)]
+        [Required(ErrorMessage = "Please enter a movie name")] // We have to have a name, and we overwrite the default error message if the form is saved without a name.
+        [StringLength(30)]      // Maximum string length of the name       
         public string Name { get; set; }
         
         public Genre Genre { get; set; }

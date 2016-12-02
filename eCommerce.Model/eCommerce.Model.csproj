@@ -44,6 +44,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="MembershipType.cs" />
+    <Compile Include="CustomValidations\Min18YearsIfMember.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />

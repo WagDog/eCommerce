@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eCommerce.Model.CustomValidations;
 
 namespace eCommerce.Model
 {
@@ -41,7 +42,8 @@ namespace eCommerce.Model
 
         [Display(Name = "Date of Birth")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        public DateTime BirthDate { get; set; }
+        [Min18YearsIfMember]    // Custom validaton to check if member is 18 years old or more
+        public DateTime? BirthDate { get; set; }
 
     }
 }

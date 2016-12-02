@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201611252013374_AddMovieSeedData.Designer.cs">
       <DependentUpon>201611252013374_AddMovieSeedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612011125212_AddExtraCustomerAnnotations.cs" />
+    <Compile Include="Migrations\201612011125212_AddExtraCustomerAnnotations.Designer.cs">
+      <DependentUpon>201612011125212_AddExtraCustomerAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="ViewModels\AddUpdateMovieModel.cs" />
@@ -406,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611252013374_AddMovieSeedData.resx">
       <DependentUpon>201611252013374_AddMovieSeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011125212_AddExtraCustomerAnnotations.resx">
+      <DependentUpon>201612011125212_AddExtraCustomerAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

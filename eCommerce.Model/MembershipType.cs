@@ -24,5 +24,11 @@ namespace eCommerce.Model
 
         [Display(Name = "Discount Rate")]
         public byte DiscountRate { get; set; }
+
+        // Define some static types for our default rates, so we can use the types in our 
+        // code, instead of 'Magic Numbers'. This helps other developers understand the code better.
+        // For example, see the Min18YearsIfMember custom validation.
+        public static readonly byte Unknown = 0;
+        public static readonly byte PayAsYouGo = 1;
     }
 }

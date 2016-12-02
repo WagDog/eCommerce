@@ -51,7 +51,7 @@ namespace eCommerce.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,CustomerName,Address1,Address2,Town,PostCode,IsSubscribedToNewsletter,MembershipTypeId")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerId,CustomerName,BirthDate,Address1,Address2,Town,PostCode,IsSubscribedToNewsletter,MembershipTypeId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
