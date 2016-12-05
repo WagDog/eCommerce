@@ -48,3 +48,34 @@ git reset --hard origin/master
 Git fetch downloads the latest from remote without trying to merge or rebase anything.
 Then the git reset resets the master branch to what you just fetched. 
 The --hard option changes all the files in your working tree to match the files in origin/master
+
+## Web API ##
+In order to use the ASP.Net API framework, you must make some additions to your application as follows:-
+Add GlobalConfiguration.Configure(WebApiConfig.Register); to the start of the Application_Start() function
+in file Global.asax. 
+if 'WebApiConfig' is not recognised, add the following code to the RouteConfig file in App_Start folder:-
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+
+            // Web API routes
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+    }
+
+Create a folder in the application->Controllers folder.
+Add a Web API Controller Class to this folder and name it after a model such as CustomersController. 
+Note the plural model name in the API controller class which is convention. Refer to the CustomerControllers
+class to view the RESTful convention.
+Use the framework structure to code your API, and use the CustomersController API as an example.
+Use the Postman REST Client extension in Chrome to test the Web API.
