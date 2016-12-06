@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 using eCommerce.DAL.Data;
 using eCommerce.DAL.Repositories;
 using eCommerce.Model;
+using eCommerce.Model.Dtos;
 
 namespace eCommerce.WebUI.Controllers.Api
 {
@@ -29,68 +31,95 @@ namespace eCommerce.WebUI.Controllers.Api
         readonly CustomerRepository _customerRepository = new CustomerRepository(db);
 
         // GET api/customers
-        public IEnumerable<Customer> Get()
+        public IHttpActionResult Get()
         {
-            return _customerRepository.GetAll().ToList();
+            // Old method of using domain model as return value. Bad Practice
+            //return _customerRepository.GetAll().ToList();
+
+            // Method returning IEnumerable<CustomerDto>, custom DTO, which is considered better practice
+            //return _customerRepository.GetAll().ToList().Select(Mapper.Map<Customer, CustomerDto>);
+
+            // Best practice. Returning the correct Http Status Code, and in this case 
+            // a list from our model mapped to a DTO
+            return Ok(_customerRepository.GetAll().ToList().Select(Mapper.Map<Customer, CustomerDto>));
         }
 
         // GET api/customers/5
-        public Customer Get(int id)
+        public IHttpActionResult Get(int id)
         {
             var customer = _customerRepository.GetById(id);
             if (customer == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return customer;
+                return BadRequest();
+            //throw new HttpResponseException(HttpStatusCode.NotFound); // Old Code
+
+            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
+            //return Mapper.Map<Customer, CustomerDto>(customer);   // Old Code
         }
 
         // POST api/customers
         [HttpPost]              // Added by PW as preferred method. Microsoft suggest calling the function Post<Controller>
-        public Customer Post(Customer customer)    // Convention dictates that the newly created entity is returned
+        public IHttpActionResult Post(CustomerDto customerDto)    // Convention dictates that the newly created entity is returned
+                                                            // But instead of simply returning the DTO, we should
+                                                            // use a Http helper to return the correct return code
+                                                            // 201 if created successfully, as well as the URI to the new
+                                                            // entity, and also the DTO or Model itself
         {
             if (!ModelState.IsValid )
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
+            // throw new HttpResponseException(HttpStatusCode.BadRequest);  // Old Code
+
+            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);  // Use AutoMApper
 
             // Add the Customer
             _customerRepository.Insert(customer);
             _customerRepository.Commit();
-            return customer;
+
+            // Get the Id from the newly formed Customer
+            customerDto.CustomerId = customer.CustomerId;
+            return Created(new Uri(Request.RequestUri + "/" + customer.CustomerId), customerDto);
         }
 
         // PUT api/customers/5
         [HttpPut]              // Added by PW as preferred method. Microsoft suggest calling the function Put<Controller>
-        public void Put(int id, Customer customer)
+        public IHttpActionResult Put(int id, CustomerDto customerDto)
         {
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid)                
+                throw new HttpResponseException(HttpStatusCode.BadRequest);   // Old code
 
             var customerInDb = _customerRepository.GetById(id);
             if (customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            customerInDb.CustomerName = customer.CustomerName;
-            customerInDb.BirthDate = customer.BirthDate;
-            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            // Map the Customer DTO to the found Customer entity in the database.
+            // Because we are supplying both souce and destination objects, AutoMapper
+            // knows what types we are using, so instead of the following:-
+            // Mapper.Map<CustomerDto, Customer>(customerDto, customerInDb);
+            // We can write as follows:-
+            Mapper.Map(customerDto, customerInDb);
+
             _customerRepository.Update(customerInDb);
             _customerRepository.Commit();
 
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE api/customers/5
         [HttpDelete]              // Added by PW as preferred method. Microsoft suggest calling the function Delete<Controller>
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
+                //throw new HttpResponseException(HttpStatusCode.BadRequest);   // Old Code
 
             var customerInDb = _customerRepository.GetById(id);
             if (customerInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
+                //throw new HttpResponseException(HttpStatusCode.NotFound);   // Old Code
 
             _customerRepository.Delete(id);
             _customerRepository.Commit();
+
+            return StatusCode(status:HttpStatusCode.NoContent);            
         }
     }
 }
