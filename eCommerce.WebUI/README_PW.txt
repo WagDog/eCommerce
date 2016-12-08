@@ -107,4 +107,8 @@ returns the URI of the newly created object, and the DTO or Model.
 We now have two ways of creating a record. This is not the best practice. Better would be to modify our Create form
 and POST to our API end point.
 
+## JQuery ##
+BootBox.js - We use this to create BootStrap type dialog boxes etc.. Rather than use Bootstrap directly, this is a 
+simple library which makes it easier.
+In Tools->Package Manager, browse for the BootBox package and install against the WebUI project.
 

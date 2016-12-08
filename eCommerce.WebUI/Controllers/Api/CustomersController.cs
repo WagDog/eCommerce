@@ -87,7 +87,7 @@ namespace eCommerce.WebUI.Controllers.Api
                 return BadRequest();              
                 //throw new HttpResponseException(HttpStatusCode.BadRequest);   // Old code
 
-            var customerInDb = _customerRepository.GetById(id);
+            Customer customerInDb = _customerRepository.GetById(id);
             if (customerInDb == null)
                 return BadRequest();
                 //throw new HttpResponseException(HttpStatusCode.NotFound);   // Old Code

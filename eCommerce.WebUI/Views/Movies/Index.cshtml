@@ -1,4 +1,5 @@
-﻿@model IEnumerable<eCommerce.Model.Movie>
+﻿@using eCommerce.Model
+@model IEnumerable<eCommerce.Model.Movie>
 
 @{
     ViewBag.Title = "Index";
@@ -9,49 +10,83 @@
 <p>
     @Html.ActionLink("New Movie", "Create", "Movies", null, htmlAttributes: new  { @class="btn btn-primary",  @role="button"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genre.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberInStock)
-        </th>
-        <th></th>
-    </tr>
+<table id="Movies" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberInStock)
+            </th>
+            <th>@Html.Label("Action")</th>
+            <th>@Html.Label("Delete?")</th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(item.Name, "Details", new { id = item.MovieId })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberInStock)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MovieId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MovieId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MovieId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new {id = item.MovieId})
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberInStock)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.MovieId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.MovieId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.MovieId})
+            </td>
+            <td><button data-movie-id="@item.MovieId" class="btn btn-link js-delete">Delete me</button></td>
+        </tr>
+    }
 
 </table>
+
+@section scripts
+{
+    <script>
+        $(document)
+            .ready(function () {
+                $("#Movies").DataTable();
+
+                $("#Movies").on("click", ".js-delete", function (){
+                    var button = $(this);
+
+                    bootbox.confirm("Are you sure you wish to delete this movie?",
+                        function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "api/movies/" + button.attr("data-movie-id"),
+                                    method: "DELETE",
+                                    success: function() {
+                                        button.parents("tr").remove();
+                                    }
+                            });
+                            }
+                        });
+                });
+            });
+
+
+    </script>
+}

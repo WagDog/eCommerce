@@ -16,7 +16,7 @@ using eCommerce.Model.Dtos;
 
 namespace eCommerce.WebUI.Controllers.Api
 {
-    public class MovieController : ApiController
+    public class MoviesController : ApiController
     {
         /****************** RESTFul Format ******************************************/
         /* Verbal           Controller                                              */
@@ -32,7 +32,7 @@ namespace eCommerce.WebUI.Controllers.Api
          ****************************************************************************/
 
         private static DataContext db = new DataContext();
-        readonly MovieRepository _movieRepository = new MovieRepository(db);
+        private readonly MovieRepository _movieRepository = new MovieRepository(db);
 
         // Note how Microsoft scaffolding differs from the CustomersController which 
         // was done as per the Udemy course. This controller uses ResponseType and Models
@@ -63,7 +63,7 @@ namespace eCommerce.WebUI.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var movieInDb = _movieRepository.GetById(id);
+            Movie movieInDb = _movieRepository.GetById(id);
             if (movieInDb == null)
                 return BadRequest();
             //throw new HttpResponseException(HttpStatusCode.NotFound);   // Old Code
@@ -110,20 +110,6 @@ namespace eCommerce.WebUI.Controllers.Api
             _movieRepository.Commit();
 
             return Ok(movie);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool MovieExists(int id)
-        {
-            return db.Movies.Count(e => e.MovieId == id) > 0;
         }
     }
 }
