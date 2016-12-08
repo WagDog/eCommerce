@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Customer.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="MembershipType.cs" />
     <Compile Include="CustomValidations\Min18YearsIfMember.cs" />

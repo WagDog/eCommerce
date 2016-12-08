@@ -83,12 +83,14 @@ namespace eCommerce.WebUI.Controllers.Api
         [HttpPut]              // Added by PW as preferred method. Microsoft suggest calling the function Put<Controller>
         public IHttpActionResult Put(int id, CustomerDto customerDto)
         {
-            if (!ModelState.IsValid)                
-                throw new HttpResponseException(HttpStatusCode.BadRequest);   // Old code
+            if (!ModelState.IsValid)  
+                return BadRequest();              
+                //throw new HttpResponseException(HttpStatusCode.BadRequest);   // Old code
 
             var customerInDb = _customerRepository.GetById(id);
             if (customerInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return BadRequest();
+                //throw new HttpResponseException(HttpStatusCode.NotFound);   // Old Code
 
             // Map the Customer DTO to the found Customer entity in the database.
             // Because we are supplying both souce and destination objects, AutoMapper
