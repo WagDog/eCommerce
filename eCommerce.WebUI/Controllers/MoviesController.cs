@@ -20,9 +20,13 @@ namespace eCommerce.WebUI.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            MovieRepository movieRepository = new MovieRepository(db);
-            var movies = movieRepository.GetAll().Include(m => m.Genre);
-            return View(movies.ToList());
+            //MovieRepository movieRepository = new MovieRepository(db);
+            //var movies = movieRepository.GetAll().Include(m => m.Genre);
+            //return View(movies.ToList());
+
+
+            // JQuery Datatable is handleing the retrieval of dat in the View called Index.cshtml
+            return View();
         }
 
         // GET: Movies/Details/5

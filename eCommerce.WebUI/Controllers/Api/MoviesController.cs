@@ -41,7 +41,11 @@ namespace eCommerce.WebUI.Controllers.Api
         // GET: api/Movie
         public IHttpActionResult GetMovies()
         {
-            return Ok(_movieRepository.GetAll().ToList().Select(Mapper.Map<Movie, MovieDto>));
+            var movieDtos = _movieRepository.GetAll()
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
+            return Ok(movieDtos);
         }
 
         // GET: api/Movie/5

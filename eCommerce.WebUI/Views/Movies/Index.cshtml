@@ -1,5 +1,4 @@
 ﻿@using eCommerce.Model
-@model IEnumerable<eCommerce.Model.Movie>
 
 @{
     ViewBag.Title = "Index";
@@ -12,54 +11,13 @@
 </p>
 <table id="Movies" class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberInStock)
-            </th>
-            <th>@Html.Label("Action")</th>
-            <th>@Html.Label("Delete?")</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Membership Type</th>
+        <th>Delete</th>
+    </tr>
     </thead>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Name, "Details", new {id = item.MovieId})
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberInStock)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.MovieId}) |
-                @Html.ActionLink("Details", "Details", new {id = item.MovieId}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.MovieId})
-            </td>
-            <td><button data-movie-id="@item.MovieId" class="btn btn-link js-delete">Delete me</button></td>
-        </tr>
-    }
-
+    <tbody></tbody>
 </table>
 
 @section scripts
@@ -67,7 +25,31 @@
     <script>
         $(document)
             .ready(function () {
-                $("#Movies").DataTable();
+                $("#Movies").DataTable({
+                    ajax: {
+                        url: "/api/movies",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "name",
+                            render: function(data, type, movie) {
+                                return "<a href='/movies/edit/" + movie.movieId + "'>" + movie.name + "</a>";
+                            }
+                        },
+                        {
+                            data: "genreDto.name"
+                        },
+                        {
+                            data: "movieId",
+                            render: function(data) {
+                                return "<button class='btn btn-link js-delete' data-movie-id=" +
+                                    data +
+                                    ">Delete</button>";
+                            }
+                        }
+                    ]
+                });
 
                 $("#Movies").on("click", ".js-delete", function (){
                     var button = $(this);

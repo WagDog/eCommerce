@@ -8,10 +8,15 @@ namespace eCommerce.WebUI
     {
         public MappingProfile()
         {
+            // Map Domain Model to DTO
             CreateMap<Customer, CustomerDto>();
-            CreateMap<CustomerDto, Customer>();
             CreateMap<Movie, MovieDto>();
+            CreateMap<Genre, GenreDto>();
+
+            // Map DTO to Domain Model
+            CreateMap<CustomerDto, Customer>();
             CreateMap<MovieDto, Movie>();
+            CreateMap<GenreDto, Genre>();
         }
     }
 }

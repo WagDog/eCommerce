@@ -13,6 +13,8 @@ namespace eCommerce.Model.Dtos
 
         public string Name { get; set; }
 
+        public GenreDto GenreDto { get; set; }
+
         public int GenreId { get; set; }
 
         public DateTime ReleaseDate { get; set; }
