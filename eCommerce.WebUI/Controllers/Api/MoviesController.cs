@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
@@ -41,11 +42,16 @@ namespace eCommerce.WebUI.Controllers.Api
         // GET: api/Movie
         public IHttpActionResult GetMovies()
         {
+            Movie movie = _movieRepository.GetById(5);
+            IQueryable<Movie> movies = _movieRepository.GetAll().Include(m => m.Genre);
+            List<Movie> lstMovies = movies.ToList();
+            IEnumerable<MovieDto> movieDtosTest = lstMovies.Select(Mapper.Map<Movie, MovieDto>);
+
             var movieDtos = _movieRepository.GetAll()
                 .Include(m => m.Genre)
                 .ToList()
                 .Select(Mapper.Map<Movie, MovieDto>);
-            return Ok(movieDtos);
+            return Ok(movieDtosTest);
         }
 
         // GET: api/Movie/5

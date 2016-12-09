@@ -10,8 +10,9 @@ namespace eCommerce.WebUI
         {
             // Map Domain Model to DTO
             CreateMap<Customer, CustomerDto>();
-            CreateMap<Movie, MovieDto>();
+            CreateMap<Movie, MovieDto>().ForMember(dest => dest.GenreDto, opt => opt.MapFrom(src => src.Genre));
             CreateMap<Genre, GenreDto>();
+            
 
             // Map DTO to Domain Model
             CreateMap<CustomerDto, Customer>();
