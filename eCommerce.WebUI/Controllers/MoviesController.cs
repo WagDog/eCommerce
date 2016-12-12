@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -9,13 +10,23 @@ using System.Web.Mvc;
 using eCommerce.DAL.Data;
 using eCommerce.DAL.Repositories;
 using eCommerce.Model;
+using eCommerce.WebUI.Models;
 using eCommerce.WebUI.ViewModels;
 
 namespace eCommerce.WebUI.Controllers
 {
+    // Below specifies that Users must be of role type 'canManage' to 
+    // Access the REST functions in this controller
+    // To specify roles for each action, decorate the individual action
+    // To switch to different views, dependant on the role of the logged
+    // in user, use the code User.IsInRole("RoleNameToTest") to branch off
+    // to different views. Different views can be used to different role 
+    // types, which is often more maintainable if there are many role
+    // types.
+    [Authorize(Roles = RoleName.CanManage)]
     public class MoviesController : Controller
     {
-        private DataContext db = new DataContext();
+        private DataContext db = new DataContext();        
 
         // GET: Movies
         public ActionResult Index()
@@ -23,8 +34,7 @@ namespace eCommerce.WebUI.Controllers
             //MovieRepository movieRepository = new MovieRepository(db);
             //var movies = movieRepository.GetAll().Include(m => m.Genre);
             //return View(movies.ToList());
-
-
+        
             // JQuery Datatable is handleing the retrieval of dat in the View called Index.cshtml
             return View();
         }

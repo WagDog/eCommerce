@@ -9,14 +9,11 @@ using eCommerce.Model;
 
 namespace eCommerce.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            CustomerRepository customers = new CustomerRepository(new DataContext());
-            ProductRepository products = new ProductRepository(new DataContext());
-            MembershipTypeRepository membershipType  = new MembershipTypeRepository(new DataContext());
-
             return View();
         }
 

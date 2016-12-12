@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees;
 using eCommerce.Model;
 using System.Security.Claims;
@@ -12,6 +13,10 @@ namespace eCommerce.WebUI.Models
 
     public class ApplicationUser : IdentityUser
     {
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }    // Added by PW to use as the HowDidIDo link up name
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
