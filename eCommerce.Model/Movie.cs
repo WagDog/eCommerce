@@ -31,5 +31,8 @@ namespace eCommerce.Model
 
         [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
+
+        [Display(Name = "Number Available")]
+        public int NumberAvailable { get; set; }
     }
 }

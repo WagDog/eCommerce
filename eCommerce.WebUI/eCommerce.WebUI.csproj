@@ -235,6 +235,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
+    <Compile Include="Controllers\Api\NewRentalsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -310,6 +311,18 @@
     <Compile Include="Migrations\201612121401523_AddHDIDNameToIdentityModel.cs" />
     <Compile Include="Migrations\201612121401523_AddHDIDNameToIdentityModel.Designer.cs">
       <DependentUpon>201612121401523_AddHDIDNameToIdentityModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612131340486_AddRentalModel.cs" />
+    <Compile Include="Migrations\201612131340486_AddRentalModel.Designer.cs">
+      <DependentUpon>201612131340486_AddRentalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612131342029_SeedRentals.cs" />
+    <Compile Include="Migrations\201612131342029_SeedRentals.Designer.cs">
+      <DependentUpon>201612131342029_SeedRentals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612131445469_AddedIdColumnsToRentals.cs" />
+    <Compile Include="Migrations\201612131445469_AddedIdColumnsToRentals.Designer.cs">
+      <DependentUpon>201612131445469_AddedIdColumnsToRentals.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -475,6 +488,8 @@
     <Content Include="README_PW.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -568,6 +583,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -692,6 +711,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612121401523_AddHDIDNameToIdentityModel.resx">
       <DependentUpon>201612121401523_AddHDIDNameToIdentityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612131340486_AddRentalModel.resx">
+      <DependentUpon>201612131340486_AddRentalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612131342029_SeedRentals.resx">
+      <DependentUpon>201612131342029_SeedRentals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612131445469_AddedIdColumnsToRentals.resx">
+      <DependentUpon>201612131445469_AddedIdColumnsToRentals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,8 @@ namespace eCommerce.WebUI.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        // Add references to your models here, to allow migrations to occur
+
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Product> Product { get; set; }
 
@@ -36,7 +38,9 @@ namespace eCommerce.WebUI.Models
         public DbSet<Movie> Movie { get; set; }
 
         public DbSet<Genre> Genre { get; set; }
-        
+
+        public DbSet<Rental> Rental { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
