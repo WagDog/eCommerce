@@ -28,7 +28,7 @@ namespace eCommerce.WebUI
             // Also added a Script.Render command in our _layout.cshtml file
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                         "~/Scripts/datatables/jquery.datatables.js",
-                        "~/Scripts/databales/datatables.bootstrap.js"));
+                        "~/Scripts/datatables/datatables.bootstrap.js"));
 
             // PW - Added the JQuery Datatables CSS to our include bundle
             bundles.Add(new StyleBundle("~/Content/css").Include(

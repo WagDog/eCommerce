@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="RentalTable" class="table">
+    <thead>
+    <tr>
+        <th>
+            Customer
+        </th>
+        <th>
+            Movie
+        </th>
+        <th>
+            Rented Date
+        </th>
+        <th>
+            Returned Date
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+ 
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document)
+            .ready(function() {
+                $("#RentalTable")
+                    .DataTable({
+                        ajax: {
+                            url: "/api/NewRentals",
+                            dataSrc: ""
+                        },
+                        columns: [
+                            {
+                                data: "customerDto.customerName"
+                            },
+                            {
+                                data: "movieDto.name"
+                            },
+                            {
+                                data: "dateRented",
+                                render: function(data, type, rental) {
+                                    var d = new Date(rental.dateRented);
+
+                                    return d.toLocaleDateString();
+                                }
+                            },
+                            {
+                                data: "dateReturned",
+                                render: function(data, type, rental) {
+                                    var d = new Date(rental.dateRented);
+
+                                    return d.toLocaleDateString();
+                                }
+                            }
+                        ]
+                    });
+            });
+    </script>
+
+}
